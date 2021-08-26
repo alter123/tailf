@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Remote log streaming</title>
+</head>
+
+<body>
+    <hr>
+    </hr><br />
+    <div id="logs"></div>
+
+    <script type="text/javascript">
+        events = [];
+
+        // Create a new HTML5 EventSource
+        var source = new EventSource('/events/');
+
+        // Create a callback for when a new message is received.
+        source.onmessage = function (e) {
+            // Append the `data` attribute of the message to the DOM.
+            events.push(e.data + "<br>");
+
+            var div = document.getElementById("logs");
+            div.innerHTML = events.slice(-10).join("");
+        };
+    </script>
+</body>
+
+</html>
